@@ -3,16 +3,17 @@
 #include <SPI.h>
 #include <MFRC522.h>
 MFRC522 mfrc522(SS_PIN, RST_PIN);   
-int variable = 0;
-void setup()
-{
+
+void setup() {
+ 
   Serial.begin(9600);   // Initiate a serial communication
-  SPI.begin();  // Initiate  SPI bus
-  mfrc522.PCD_Init(); // Initiate MFRC522
-  Serial.println("Show your card:");
-  
+  SPI.begin();      // Initiate  SPI bus
+  mfrc522.PCD_Init();   // Initiate MFRC522
+   Serial.println("Show your card:");
+}
 void loop()
 {
+  
   // Look for new cards
   if ( ! mfrc522.PICC_IsNewCardPresent())
   {
@@ -25,8 +26,9 @@ void loop()
   }
   //Show UID on serial monitor
   Serial.println();
+ 
   Serial.print(" UID tag :");
-  String content = " ";
+  String content = "";
   byte letter;
   for (byte i = 0; i < mfrc522.uid.size; i++)
   {
@@ -36,24 +38,17 @@ void loop()
     content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
   content.toUpperCase();
-  Serial.println();
-  if (content.substring(1) == "A3 E0 1E 02") //change UID of the card that you want to give access
-  {
-    Serial.println(" unlock ");
-    Serial.println(" Welcome ram ");
-    Serial.println(" enjoy your day ");
-    Serial.println(" thank you ");
-    Serial.println();
-    delay(1000);
-  }
-  content.toUpperCase();
   if (content.substring(1) == "49 DC 65 D5") //change UID of the card that you want to give access
   {
+    Serial.println();
     Serial.println(" unlock ");
-    Serial.println(" Welcome vIP");    
+    Serial.println(" Welcome vicky");    
     Serial.println(" enjoy your day ");
     Serial.println(" thank you ");
-    Serial.println();
+    Serial.println("Show your card:");
+    
     delay(1000);
+    
   }
+  
 }
